@@ -1,5 +1,11 @@
 //
 //import Signal from "lib/signal.js"
+const Locations = [
+	Test = [ //
+		Children = ["Test2","Test3"]
+		Data = []
+	]
+];
 
 class Signal {
 	constructor() {
@@ -81,6 +87,14 @@ class Dialog {
 	}
 }
 
+
+class Navigator {
+	constructor(Point) {
+		this.Dom = new Prompt("div");
+		//let Nav = newElement
+
+	}
+}
 
 let TestSignal = new Signal();
 
