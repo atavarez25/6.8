@@ -1,0 +1,26 @@
+
+@keyframes Popup {
+	from {top: 150%;}
+	to {top:  70%;}
+}
+
+#Dialog {
+	position: fixed;
+	display:  flex;
+	left: 30%;
+	background: whitesmoke;
+	width: 40%;
+	height: 15%;
+	text-align: center;
+	justify-content: center;
+	align-items: center;
+	border-radius: 25px; 
+	box-shadow: 0px 5px 10px rgba(0,0,0,.5);
+
+	font-size: 36px;
+	font-family: sans-serif;
+
+	animation-name: Popup;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;  
+}
