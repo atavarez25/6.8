@@ -1,11 +1,33 @@
 //
 //import Signal from "lib/signal.js"
-const Locations = [
-	Test = [ //
-		Children = ["Test2","Test3"]
-		Data = []
-	]
-];
+const body = document.getElementById("body");
+let RunningDialog;
+
+const Locations = {
+	Test: {
+		Children: ["RedRoom","GreenRoom"]
+	},
+	RedRoom: {
+		Children: ["Test"]
+	}
+}
+
+const LocationCallbacks = {
+	Test: function() {
+		$("body").css("background","rgb(0,64,128)");
+		console.log('s');
+	},
+
+	RedRoom: function() {
+		$("body").css("background","rgb(128,64,0)");
+	}
+}
+
+function Clear(Dom) {
+	while (Dom.firstChild) {
+		Dom.remove(Dom.firstChild);
+	}
+}
 
 class Signal {
 	constructor() {
@@ -58,11 +80,17 @@ class Prompt {
 			this.Dom.setAttribute(attrs[i][0],attrs[i][1]);
 		}
 	}
+
+	GetDom() {
+		console.log(this.Dom);
+		return this.Dom;
+	}
 }
 
 
 class Dialog {
 	constructor(InitialText,Color) {
+		this.DialogRunning = false;
 		this.Prompt = new Prompt("p",InitialText);
 		$("#Dialog").css("Color",Color);
 
@@ -80,19 +108,77 @@ class Dialog {
 	}
 
 	ChangeText(Text,Speed) {
-		this.Prompt.Dom.innerHTML = "";
-		for (let i = 0; i < Text.length; i ++) {
-			setTimeout(() => {this.Prompt.Dom.innerHTML = this.Prompt.Dom.innerHTML + Text[i]},Speed * i);
+		if (!this.DialogRunning) {
+			this.DialogRunning = true;
+			setTimeout(() => {this.DialogRunning = false;},Speed * Text.length);
+
+			this.Prompt.Dom.innerHTML = "";
+			for (let i = 0; i < Text.length; i ++) {
+				setTimeout(() => {this.Prompt.Dom.innerHTML = this.Prompt.Dom.innerHTML + Text[i]},Speed * i);
+			}
 		}
 	}
 }
 
+function LoadNodes() {
+	for (let i = 0; i < Location.Children.length; i ++) {
+			let Li = document.createElement("button");
+			Li.innerHTML = Location.Children[i];
+
+			if (Locations[Location.Children[i]]) {
+				Li.onclick = function() {
+					this.Pressed.Fire(Point);
+					Clear(this.Dom);
+					this.Point
+				}
+			}
+
+			Nav.appendChild(Li);
+		}
+}
+
 
 class Navigator {
-	constructor(Point) {
-		this.Dom = new Prompt("div");
-		//let Nav = newElement
+	constructor(StartPoint) {
+		this.Prompt = new Prompt("div","");
+		this.Pressed = new Signal();
+		this.Point = StartPoint;
+		this.Prompt.Activate(document.getElementById("body"));
+		this.Dom = this.Prompt.GetDom();
 
+		let Nav = document.createElement("div");
+		this.Dom.setAttribute("id","Navigator");
+		Nav.setAttribute("id","NavUL");
+
+		let Location = Locations[StartPoint];
+		
+
+		this.Update = function(Point) {
+			this.Pressed.Fire(Point);
+			Clear(this.Dom);
+		}
+
+
+
+		for (let i = 0; i < Location.Children.length; i ++) {
+			let Li = document.createElement("button");
+			Li.innerHTML = Location.Children[i];
+
+			if (Locations[Location.Children[i]]) {
+				Li.onclick = function() {
+					this.Pressed.Fire(Point);
+					Clear(this.Dom);
+					this.Point
+				}
+			}
+
+			Nav.appendChild(Li);
+		}
+
+
+		this.Dom.appendChild(Nav);
+		document.getElementById("body").appendChild(this.Dom);
+		LocationCallbacks[StartPoint]();
 	}
 }
 
@@ -105,11 +191,12 @@ TestSignal.Connect(function(res) {
 TestSignal.Fire("Signals are working");
 
 let NewDialog = new Dialog("Prompt test")
+let Navigate = new Navigator("Test");
 
 
 $("#cre").click(function() {
 	NewDialog.Activate(document.getElementById("DialogContainer"));
-	setTimeout(() => {NewDialog.ChangeText("Dialog class test",50);},4000)
+	setTimeout(() => {NewDialog.ChangeText("Dialog class test",50);},1000)
 }); 
 
 $("#rem").click(function() {

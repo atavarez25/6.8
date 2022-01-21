@@ -24,3 +24,21 @@
 	animation-duration: 1s;
 	animation-fill-mode: forwards;  
 }
+
+#Navigator {
+	position: fixed;
+	display: flex;
+	left: 30%;
+	width: 40%;
+	height: 5%;
+	top: 90%;
+
+	border-radius: 25px;
+
+	background: rgba(0, 0, 0, .5);
+}
+
+#NavUL {
+	display: flex;
+	justify-content: space-around;
+}
