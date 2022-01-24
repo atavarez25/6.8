@@ -9,6 +9,9 @@ const Locations = {
 	},
 	RedRoom: {
 		Children: ["Test"]
+	},
+	GreenRoom: {
+		Children: ["Test"]
 	}
 }
 
@@ -19,13 +22,23 @@ const LocationCallbacks = {
 	},
 
 	RedRoom: function() {
-		$("body").css("background","rgb(128,64,0)");
-	}
+		$("body").css("background","rgb(200,32,0)");
+	},
+
+	GreenRoom: function() {
+		$("body").css("background","rgb(0,200,32)");
+	},
 }
 
 function Clear(Dom) {
+	let i = 0;
 	while (Dom.firstChild) {
-		Dom.remove(Dom.firstChild);
+		i ++
+		Dom.firstChild.remove();
+
+		if (i > 25) {
+			break
+		}
 	}
 }
 
@@ -119,21 +132,26 @@ class Dialog {
 		}
 	}
 }
-
-function LoadNodes() {
+function LoadNodes(Location,cls,Nav,Point) {
+	$("."+Point).show();
+	
 	for (let i = 0; i < Location.Children.length; i ++) {
 			let Li = document.createElement("button");
 			Li.innerHTML = Location.Children[i];
-
-			if (Locations[Location.Children[i]]) {
-				Li.onclick = function() {
-					this.Pressed.Fire(Point);
-					Clear(this.Dom);
-					this.Point
-				}
-			}
-
+			console.log(Nav);
 			Nav.appendChild(Li);
+
+//			if (Locations[Location.Children[i]]) {
+				Li.onclick = function() {
+					$("."+Point).hide();
+					cls.Pressed.Fire(Point);
+					Clear(Nav);
+					cls.Point = Li.innerHTML;
+					LocationCallbacks[cls.Point]();
+
+					LoadNodes(Locations[Li.innerHTML],cls,Nav,Li.innerHTML);
+				}
+//			}
 		}
 }
 
@@ -160,21 +178,22 @@ class Navigator {
 
 
 
-		for (let i = 0; i < Location.Children.length; i ++) {
-			let Li = document.createElement("button");
-			Li.innerHTML = Location.Children[i];
+//`		for (let i = 0; i < Location.Children.length; i ++) {
+//			let Li = document.createElement("button");
+//			Li.innerHTML = Location.Children[i];
+//
+//			if (Locations[Location.Children[i]]) {
+//				Li.onclick = function() {
+//					this.Pressed.Fire(Point);
+//					Clear(this.Dom);
+//					this.Point
+//				}
+//			}
 
-			if (Locations[Location.Children[i]]) {
-				Li.onclick = function() {
-					this.Pressed.Fire(Point);
-					Clear(this.Dom);
-					this.Point
-				}
-			}
+//			Nav.appendChild(Li);
+//		}
 
-			Nav.appendChild(Li);
-		}
-
+		LoadNodes(Location,this,Nav,StartPoint)
 
 		this.Dom.appendChild(Nav);
 		document.getElementById("body").appendChild(this.Dom);
@@ -182,16 +201,13 @@ class Navigator {
 	}
 }
 
-let TestSignal = new Signal();
-
-TestSignal.Connect(function(res) {
-	console.log(res[0]);
-});
-
-TestSignal.Fire("Signals are working");
+for (const [key,value] of Object.entries(Locations)) {
+	$("."+key).hide();
+}
 
 let NewDialog = new Dialog("Prompt test")
 let Navigate = new Navigator("Test");
+
 
 
 $("#cre").click(function() {
