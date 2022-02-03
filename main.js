@@ -5,13 +5,25 @@ let RunningDialog;
 
 const Locations = {
 	Test: {
-		Children: ["RedRoom","GreenRoom"]
+		Children: ["RedRoom","GreenRoom","Game"]
 	},
 	RedRoom: {
 		Children: ["Test"]
 	},
 	GreenRoom: {
 		Children: ["Test"]
+	},
+	Game: {
+		Children: ["Test","Home"]
+	},
+	Home: {
+		Children: ["Game"]
+	}
+}
+
+const ItemCallbacks = {
+	Test: function(div) {
+		alert("Ate apple");
 	}
 }
 
@@ -28,6 +40,17 @@ const LocationCallbacks = {
 	GreenRoom: function() {
 		$("body").css("background","rgb(0,200,32)");
 	},
+	Game: function() {
+		$("body").css("background","rgb(50,50,50)")
+	},
+	Home: function() {
+		$("body").css("background","rgb(50,50,50)")
+	},
+}
+
+let GameVars = {
+	Money: 0,
+	Job: null,
 }
 
 function Clear(Dom) {
@@ -208,6 +231,13 @@ for (const [key,value] of Object.entries(Locations)) {
 let NewDialog = new Dialog("Prompt test")
 let Navigate = new Navigator("Test");
 
+
+$(".Item").click(function(j) {
+	let Div = j.target;
+	let ItemType = Div.getAttribute("ItemType")
+
+	ItemCallbacks[ItemType](Div);
+});
 
 
 $("#cre").click(function() {

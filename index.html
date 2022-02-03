@@ -14,6 +14,14 @@
 				justify-content: center;
 				align-items: center;
 				background: rgba(0,0,0,.5);
+
+				color: white;
+				font-size: 48px;
+				font-family: sans-serif;
+			}
+
+			.Item {
+				color: white;
 			}
 		</style>
 	</head>
@@ -31,20 +39,34 @@
 
 		<img src="#" class="RedRoom">
 		
-		<div class="RedRoom CenterText"> 
-			RedRoom
+		<div class="RedRoom"> 
+			<div class="CenterText">
+				RedRoom
+			</div>
+
+			<div class="Item" ItemType="Test"> 
+				Apple
+			</div>
 		</div>
 
 		<div class="GreenRoom CenterText"> 
 			GreenRoom
 		</div>
 
+		<div class="Game">
+			<img class="CenterText" src="https://media-cldnry.s-nbcnews.com/image/upload/t_fit-760w,f_auto,q_auto:best/newscms/2019_24/1448814/how-size-doesnt-make-you-happier-today-main-190614.jpg">
+		</div>
+
+		<div class="Home">
+			<img class="CenterText" src="https://www.decoraid.com/wp-content/uploads/2018/06/foyer-interior-design-first-impression.jpg">
+		</div>
 
 		<div id="DialogContainer"> 
 
 		</div>
 
 
+		<script src="lib/signal.js"> </script>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<script src="main.js"> </script>
 	</body>
