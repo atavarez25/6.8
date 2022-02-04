@@ -8,7 +8,7 @@
 	position: fixed;
 	display:  flex;
 	left: 30%;
-	background: whitesmoke;
+	background: linear-gradient(white,whitesmoke);
 	width: 40%;
 	height: 15%;
 	text-align: center;

@@ -1,5 +1,5 @@
-//
-//import Signal from "lib/signal.js"
+//import Signal from "/signal.js";
+
 const body = document.getElementById("body");
 let RunningDialog;
 
@@ -48,23 +48,6 @@ const LocationCallbacks = {
 	},
 }
 
-let GameVars = {
-	Money: 0,
-	Job: null,
-}
-
-function Clear(Dom) {
-	let i = 0;
-	while (Dom.firstChild) {
-		i ++
-		Dom.firstChild.remove();
-
-		if (i > 25) {
-			break
-		}
-	}
-}
-
 class Signal {
 	constructor() {
 		this.Callbacks = [];
@@ -80,6 +63,20 @@ class Signal {
 		}
 	}
 }
+
+
+function Clear(Dom) {
+	let i = 0;
+	while (Dom.firstChild) {
+		i ++
+		Dom.firstChild.remove();
+
+		if (i > 25) {
+			break
+		}
+	}
+}
+
 
 
 class Prompt {
@@ -228,23 +225,41 @@ for (const [key,value] of Object.entries(Locations)) {
 	$("."+key).hide();
 }
 
-let NewDialog = new Dialog("Prompt test")
-let Navigate = new Navigator("Test");
 
 
-$(".Item").click(function(j) {
-	let Div = j.target;
-	let ItemType = Div.getAttribute("ItemType")
+//Story 
 
-	ItemCallbacks[ItemType](Div);
-});
+function Intro() {
+	let IntroMonolog = new Dialog("");
+	IntroMonolog.Activate(document.getElementById("DialogContainer"));
+
+	IntroMonolog.ChangeText("a");
+}
+
+function InitNavigator() {
+
+}
 
 
-$("#cre").click(function() {
-	NewDialog.Activate(document.getElementById("DialogContainer"));
-	setTimeout(() => {NewDialog.ChangeText("Dialog class test",50);},1000)
-}); 
+Intro();
+//
+//let NewDialog = new Dialog("Prompt test")
+//let Navigate = new Navigator("Test");
 
-$("#rem").click(function() {
-	NewDialog.Disable();
-});
+
+//$(".Item").click(function(j) {
+//	let Div = j.target;
+//	let ItemType = Div.getAttribute("ItemType")
+//
+//	ItemCallbacks[ItemType](Div);
+//});
+
+
+//$("#cre").click(function() {
+//	NewDialog.Activate(document.getElementById("DialogContainer"));
+//	setTimeout(() => {NewDialog.ChangeText("Dialog class test",50);},1000)
+//}); 
+
+//$("#rem").click(function() {
+//	NewDialog.Disable();
+//});

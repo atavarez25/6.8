@@ -1,5 +1,5 @@
 //
-class Signal {
+export default class Signal {
 	constructor() {
 		this.Callbacks = [];
 	}
@@ -15,4 +15,3 @@ class Signal {
 	}
 }
 
-export {Signal}
