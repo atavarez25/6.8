@@ -228,12 +228,23 @@ for (const [key,value] of Object.entries(Locations)) {
 
 
 //Story 
+let Ticket0 = 0;
+function YieldEvent(Dom,EventListener,Callback) {
+	Dom.addEventListener(Ticket0)
+}
+
+function YieldF(Callback,time) {
+	setTimeout(Callback, time);
+}
 
 function Intro() {
 	let IntroMonolog = new Dialog("");
 	IntroMonolog.Activate(document.getElementById("DialogContainer"));
 
-	IntroMonolog.ChangeText("a");
+	YieldF(function() {
+		IntroMonolog.ChangeText("Today is one of the most imporant days of my life",50);
+	},1000);
+
 }
 
 function InitNavigator() {
