@@ -25,7 +25,27 @@
 			}
 
 			body {
-				background: black;
+				background: grey;
+				margin: 0;
+				padding: 0;
+			}
+
+			@keyframes Opaque {
+				from {background: rgba(0,0,0,1);}
+				to {background: rgba(0,0,0,0);}
+			}
+
+			#Fade {
+				background: rgba(0,0,0,1);
+				position: fixed;
+				width: 100%;
+				height:  100%;
+			}
+
+			.FadeAnim {
+				animation-name: Opaque;
+				animation-duration: 1s;
+				animation-fill-mode: forwards;  
 			}
 		</style>
 	</head>
@@ -65,14 +85,23 @@
 			<img class="CenterText" src="https://www.decoraid.com/wp-content/uploads/2018/06/foyer-interior-design-first-impression.jpg">
 		</div>
 
+		<div class="RealHome"> 
+			
+		</div> 
+
+		<div id="Fade">
+
+		</div>
+
 		<div id="DialogContainer"> 
 
 		</div>
 
 
+
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 		<!-- <script src="signal.js"> </script> -->
-		<script type="module" src="file:///Users/web20242/Desktop/6.8/6.8/main.js"> </script>
+		<script src="file:///Users/web20242/Desktop/6.8/6.8/main.js"> </script>
 	</body>
 
 </html>

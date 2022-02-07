@@ -18,6 +18,11 @@ const Locations = {
 	},
 	Home: {
 		Children: ["Game"]
+	},
+
+
+	RealHome: {
+		Children: []
 	}
 }
 
@@ -28,24 +33,7 @@ const ItemCallbacks = {
 }
 
 const LocationCallbacks = {
-	Test: function() {
-		$("body").css("background","rgb(0,64,128)");
-		console.log('s');
-	},
 
-	RedRoom: function() {
-		$("body").css("background","rgb(200,32,0)");
-	},
-
-	GreenRoom: function() {
-		$("body").css("background","rgb(0,200,32)");
-	},
-	Game: function() {
-		$("body").css("background","rgb(50,50,50)")
-	},
-	Home: function() {
-		$("body").css("background","rgb(50,50,50)")
-	},
 }
 
 class Signal {
@@ -217,7 +205,9 @@ class Navigator {
 
 		this.Dom.appendChild(Nav);
 		document.getElementById("body").appendChild(this.Dom);
-		LocationCallbacks[StartPoint]();
+		if (LocationCallbacks[StartPoint]) {
+			LocationCallbacks[StartPoint]();
+		}
 	}
 }
 
@@ -237,22 +227,41 @@ function YieldF(Callback,time) {
 	setTimeout(Callback, time);
 }
 
+async function sleep(ms) {
+    await new Promise(r => setTimeout(r, ms));
+}
+
 function Intro() {
 	let IntroMonolog = new Dialog("");
 	IntroMonolog.Activate(document.getElementById("DialogContainer"));
 
-	YieldF(function() {
-		IntroMonolog.ChangeText("Today is one of the most imporant days of my life",50);
-	},1000);
+	IntroMonolog.ChangeText("Today's my first day on the job",50);
+	setTimeout(function() {
+		IntroMonolog.ChangeText("I can't be late to work",50);
+		let Fade = document.getElementById("Fade")
+		Fade.setAttribute("class","FadeAnim")
+	},4000)
+
+
 
 }
 
 function InitNavigator() {
+	let Navigate = new Navigator("RealHome");
 
+
+	$(".Item").click(function(j) {
+	let Div = j.target;
+	let ItemType = Div.getAttribute("ItemType")
+
+	ItemCallbacks[ItemType](Div);
+});
 }
 
 
 Intro();
+setTimeout(InitNavigator,5000)
+
 //
 //let NewDialog = new Dialog("Prompt test")
 //let Navigate = new Navigator("Test");
