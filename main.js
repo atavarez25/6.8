@@ -16,14 +16,26 @@ const Locations = {
 	Game: {
 		Children: ["Test","Home"]
 	},
-	Home: {
+	FHome: {
 		Children: ["Game"]
 	},
 
 
-	RealHome: {
-		Children: []
-	}
+	Bedroom: {
+		Children: ["Hallway"]
+	},
+	Hallway: {
+		Children: ["Bedroom","Kitchen","LivingRoom","Outside"]
+	},
+	Kitchen: {
+		Children: ['Hallway']
+	},
+	LivingRoom: {
+		Children: ['Hallway']
+	},
+	Outside: {
+		Children: ['Hallway']
+	},
 }
 
 const ItemCallbacks = {
@@ -247,7 +259,7 @@ function Intro() {
 }
 
 function InitNavigator() {
-	let Navigate = new Navigator("RealHome");
+	let Navigate = new Navigator("Bedroom"); //add secret areas
 
 
 	$(".Item").click(function(j) {
