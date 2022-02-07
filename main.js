@@ -22,7 +22,7 @@ const Locations = {
 
 
 	Bedroom: {
-		Children: ["Hallway"]
+		Children: ["Hallway","Computer"]
 	},
 	Hallway: {
 		Children: ["Bedroom","Kitchen","LivingRoom","Outside"]
@@ -36,16 +36,22 @@ const Locations = {
 	Outside: {
 		Children: ['Hallway']
 	},
+	Computer: {
+		Children: ["BedRoom"],
+	}
 }
 
 const ItemCallbacks = {
 	Test: function(div) {
 		alert("Ate apple");
-	}
+	},
 }
 
 const LocationCallbacks = {
-
+	Computer: function(div) {
+//		let game = document.ad
+//		div.setAttribute("src","https://wordrace-4inrow.coolmathgames.com/fourinarow");
+	},
 }
 
 class Signal {
@@ -167,7 +173,9 @@ function LoadNodes(Location,cls,Nav,Point) {
 					cls.Pressed.Fire(Point);
 					Clear(Nav);
 					cls.Point = Li.innerHTML;
-					LocationCallbacks[cls.Point]();
+					if (LocationCallbacks[cls.Point]) {
+						LocationCallbacks[cls.Point]();
+					}
 
 					LoadNodes(Locations[Li.innerHTML],cls,Nav,Li.innerHTML);
 				}
