@@ -4,6 +4,11 @@
 	to {top:  70%;}
 }
 
+@keyframes Popup2 {
+	from {top: 150%;}
+	to {top:  40%;}
+}
+
 #Dialog {
 	position: fixed;
 	display:  flex;
@@ -23,6 +28,23 @@
 	animation-name: Popup;
 	animation-duration: 1s;
 	animation-fill-mode: forwards;  
+}
+
+
+#ChoicePrompt {
+	position: fixed;
+	width: 50%;		
+	height: 40%;
+	top: 30%;
+	left: 25%;
+
+	border-radius: 25px; 
+	box-shadow: 0px 5px 10px rgba(0,0,0,.5);
+	background: whitesmoke;
+
+	animation-name: Popup2;
+	animation-duration: 1s;
+	animation-fill-mode: forwards;
 }
 
 #Navigator {

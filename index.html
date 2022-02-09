@@ -47,6 +47,48 @@
 				animation-duration: 1s;
 				animation-fill-mode: forwards;  
 			}
+
+			.Room {
+				position: fixed;
+				width: 60%;
+				height: 60%;
+				left: 20%;
+				top: 20%;
+			}
+
+			.RoomThin {
+				position: fixed;
+				width: 40%;
+				height: 70%;
+				left: 30%;
+				top: 15%;
+			}
+
+			#Clock {
+				font-size: 25px;
+				font-family: sans-serif;
+			}
+
+			#ChoicePrompt {
+				color: rgb(0, 180, 0);
+				text-align: center;
+				font-family: sans-serif;
+			}
+
+			.Container {
+				display: flex;
+				justify-content: center;
+			}
+
+			.ChoiceContainer {
+				width: 30%;
+				color: rgb(180, 0, 0);
+			}
+
+			.SmallImg {
+				width: 5%;
+				height: 10%;
+			}
 		</style>
 	</head>
 
@@ -85,21 +127,26 @@
 			<img class="CenterText" src="https://www.decoraid.com/wp-content/uploads/2018/06/foyer-interior-design-first-impression.jpg">
 		</div>
 
-		<div class="Bedroom"> 
-
-		</div> 
-
 		<div class="Hallway"> 
-
+			<img src="https://hips.hearstapps.com/ame-prod-goodhousekeeping-assets.s3.amazonaws.com/main/embedded/46114/gettyimages-168439972.jpg?resize=480:*" class='RoomThin'>
 		</div> 		
 
 		<div class="LivingRoom"> 
-
+			<img src="https://ksassets.timeincuk.net/wp/uploads/sites/56/2019/01/Small-living-room.jpg"
+			class="RoomThin">
 		</div> 
+
+		<div class="Kitchen">
+			<img src="https://empire-s3-production.bobvila.com/slides/30238/original/diana_kennedy_interiors_pc_Diane_Anton_Photography.jpg?1549670303" class="RoomThin">
+		</div>
 
 		<div class="Outside"> 
-
+			<img src="https://media.istockphoto.com/photos/wooden-front-door-picture-id156443918?k=20&m=156443918&s=612x612&w=0&h=X-JDdAq6Y4H9VQYDPCs1wCSqCAF6o3CLFaN-aOCIlGE=" class="RoomThin">
 		</div> 
+
+		<div class="Garage">
+			<img src="https://media.istockphoto.com/photos/small-garage-filled-with-a-car-motorcycle-and-tools-picture-id185074451" class="RoomThin">
+		</div>
 
 	<!--	<div class="Computer">
 			<iframe> </iframe>
@@ -113,6 +160,28 @@
 
 		</div>
 
+		<div id="ChoicePrompt">
+			<h1> Choice </h1>
+
+			<div class="Container">
+				<div class="ChoiceContainer">
+				<h2> Drive to work </h2>
+				<button> _ </button>
+				</div>
+					Or
+				<div class="ChoiceContainer">
+				<h2> Take the bus </h2>
+				<button> _ </button>
+				</div>
+			</div>
+		</div>
+
+		<div id="Clock">
+			<p> 
+				<img src="https://cdn2.iconfinder.com/data/icons/pittogrammi/142/10-512.png" class="SmallImg">
+				Time Left: 60 Min
+			</p>
+		</div>
 
 
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>

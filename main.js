@@ -3,6 +3,12 @@
 const body = document.getElementById("body");
 let RunningDialog;
 
+let Time = 0;
+
+function ChoicePopup() {
+	$("#ChoicePrompt").show();
+}
+
 const Locations = {
 	Test: {
 		Children: ["RedRoom","GreenRoom","Game"]
@@ -21,11 +27,8 @@ const Locations = {
 	},
 
 
-	Bedroom: {
-		Children: ["Hallway","Computer"]
-	},
 	Hallway: {
-		Children: ["Bedroom","Kitchen","LivingRoom","Outside"]
+		Children: ["Kitchen","LivingRoom","Outside"]
 	},
 	Kitchen: {
 		Children: ['Hallway']
@@ -34,11 +37,14 @@ const Locations = {
 		Children: ['Hallway']
 	},
 	Outside: {
-		Children: ['Hallway']
+		Children: ['Hallway',"Garage"]
 	},
 	Computer: {
 		Children: ["BedRoom"],
-	}
+	},
+	Garage: {
+		Children: ["Outside"]
+	},
 }
 
 const ItemCallbacks = {
@@ -51,6 +57,15 @@ const LocationCallbacks = {
 	Computer: function(div) {
 //		let game = document.ad
 //		div.setAttribute("src","https://wordrace-4inrow.coolmathgames.com/fourinarow");
+	},
+	Garage: function(div) {
+		ChoicePopup();
+	},
+	Outside: function(div) {
+		$("body").css("background","lightblue")
+	},
+	Hallway: function(div) {
+		$("body").css("background","grey")
 	},
 }
 
@@ -82,7 +97,6 @@ function Clear(Dom) {
 		}
 	}
 }
-
 
 
 class Prompt {
@@ -252,6 +266,7 @@ async function sleep(ms) {
 }
 
 function Intro() {
+	$("#ChoicePrompt").hide();
 	let IntroMonolog = new Dialog("");
 	IntroMonolog.Activate(document.getElementById("DialogContainer"));
 
@@ -262,12 +277,14 @@ function Intro() {
 		Fade.setAttribute("class","FadeAnim")
 	},4000)
 
-
+	setTimeout(function() {
+		IntroMonolog.Disable();
+	},8000)
 
 }
 
 function InitNavigator() {
-	let Navigate = new Navigator("Bedroom"); //add secret areas
+	let Navigate = new Navigator("Hallway"); //add secret areas
 
 
 	$(".Item").click(function(j) {
