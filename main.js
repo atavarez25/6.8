@@ -1,12 +1,29 @@
 //import Signal from "/signal.js";
 
 const body = document.getElementById("body");
+const ChoicePrompt = document.getElementById("ChoicePrompt");
 let RunningDialog;
 
 let Time = 0;
 
-function ChoicePopup() {
+function GetSpecefic(Dom,Attr,Name) {
+	for (let i = 0; i < Dom.children.length; i ++) {
+		let Element = Dom.children[i];
+
+		if (Element.getAttribute(Attr) == Name) {
+			return Element;
+		}
+	}
+}
+
+function ChoicePopup(c1,c2) { //c format: {Callback: Function,Text: String}
 	$("#ChoicePrompt").show();
+
+	let ChoiceContainer1 = GetSpecefic(ChoicePrompt.children[1],"id","ChoiceContainer1");
+	let ChoiceContainer2 = GetSpecefic(ChoicePrompt.children[1],"id","ChoiceContainer2");
+
+	$(ChoiceContainer1).text(c1.Text);
+	ChoiceContainer2.textContent = c2.Text;
 }
 
 const Locations = {
@@ -59,7 +76,10 @@ const LocationCallbacks = {
 //		div.setAttribute("src","https://wordrace-4inrow.coolmathgames.com/fourinarow");
 	},
 	Garage: function(div) {
-		ChoicePopup();
+		ChoicePopup(
+			{Text: "Drive to work"},
+			{Text: "Take the bus"}
+		);
 	},
 	Outside: function(div) {
 		$("body").css("background","lightblue")
@@ -211,7 +231,7 @@ class Navigator {
 		Nav.setAttribute("id","NavUL");
 
 		let Location = Locations[StartPoint];
-		
+		this.Nav = Nav;
 
 		this.Update = function(Point) {
 			this.Pressed.Fire(Point);
@@ -243,6 +263,10 @@ class Navigator {
 			LocationCallbacks[StartPoint]();
 		}
 	}
+
+	ChangeLocation(Location) {
+		LoadNodes(Locations[Location],this,this.Nav,Location);
+	}
 }
 
 for (const [key,value] of Object.entries(Locations)) {
@@ -270,9 +294,9 @@ function Intro() {
 	let IntroMonolog = new Dialog("");
 	IntroMonolog.Activate(document.getElementById("DialogContainer"));
 
-	IntroMonolog.ChangeText("Today's my first day on the job",50);
+	IntroMonolog.ChangeText("My interview is today",50);
 	setTimeout(function() {
-		IntroMonolog.ChangeText("I can't be late to work",50);
+		IntroMonolog.ChangeText("I can't be late",50);
 		let Fade = document.getElementById("Fade")
 		Fade.setAttribute("class","FadeAnim")
 	},4000)
