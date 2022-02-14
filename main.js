@@ -3,6 +3,7 @@
 const body = document.getElementById("body");
 const ChoicePrompt = document.getElementById("ChoicePrompt");
 let RunningDialog;
+let RunningNavigator;
 
 let Time = 0;
 
@@ -19,11 +20,26 @@ function GetSpecefic(Dom,Attr,Name) {
 function ChoicePopup(c1,c2) { //c format: {Callback: Function,Text: String}
 	$("#ChoicePrompt").show();
 
-	let ChoiceContainer1 = GetSpecefic(ChoicePrompt.children[1],"id","ChoiceContainer1");
-	let ChoiceContainer2 = GetSpecefic(ChoicePrompt.children[1],"id","ChoiceContainer2");
+	let ChoiceContainer1 = document.getElementById("ChoiceContainer1");
+	let ChoiceContainer2 = document.getElementById("ChoiceContainer2");
+	let ChoiceButton1 = document.getElementById("ChoiceButton1");
+	let ChoiceButton2 = document.getElementById("ChoiceButton2");
 
 	$(ChoiceContainer1).text(c1.Text);
-	ChoiceContainer2.textContent = c2.Text;
+	$(ChoiceContainer2).text(c2.Text);
+
+
+	$(ChoiceButton2).click(function() {
+		console.log("o");
+		$("#ChoicePrompt").hide();
+		c2.Callback();
+	});
+
+	$(ChoiceButton1).click(function() {
+		console.log("o");
+		$("#ChoicePrompt").hide();
+		c1.Callback();
+	});
 }
 
 const Locations = {
@@ -62,6 +78,10 @@ const Locations = {
 	Garage: {
 		Children: ["Outside"]
 	},
+
+	BusStop: {
+		Children: []
+	},
 }
 
 const ItemCallbacks = {
@@ -77,8 +97,16 @@ const LocationCallbacks = {
 	},
 	Garage: function(div) {
 		ChoicePopup(
-			{Text: "Drive to work"},
-			{Text: "Take the bus"}
+			{Text: "Drive to work", 
+			Callback: function() {
+				//Traffic Jam
+			}},
+			{Text: "Take the bus",
+			Callback: function() {
+				//Teleport to bus stop
+				RunningNavigator.ChangeLocation("BusStop");
+			}
+			}
 		);
 	},
 	Outside: function(div) {
@@ -309,7 +337,7 @@ function Intro() {
 
 function InitNavigator() {
 	let Navigate = new Navigator("Hallway"); //add secret areas
-
+	RunningNavigator = Navigate;
 
 	$(".Item").click(function(j) {
 	let Div = j.target;
